@@ -42,7 +42,7 @@
 |Column|Type|Options|
 |---|---|---|
 |name|string|null: false|
-|info|string|null: false|
+|info|text|null: false|
 |category|string|null: false|
 |sales-status|string|null: false|
 |shipping-fee-status|string|null: false|
