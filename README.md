@@ -60,7 +60,7 @@
 |city|string|null: false|
 |addresses|string|null: false|
 |building|string||
-|phone-number|integer|null: false|
+|phone-number|string|null: false|
 |order|references|null: false, foreign_key: true|
 
 ### Association
