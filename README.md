@@ -23,19 +23,15 @@
 
 |Column|Type|Options|
 |---|---|---|
-|postal-code|string|null: false|
-|prefecture|integer|null: false|
-|city|string|null: false|
-|addresses|string|null: false|
-|building|string||
-|phone-number|integer|null: false|
 |user|references|null: false, foreign_key: true|
 |item|references|null: false, foreign_key: true|
+|order|references|null: false, foreign_key: true|
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
+- belongs_to :order
 
 ## itemsテーブル
 
@@ -62,6 +58,7 @@
 # Association
 
 - has_one :address
+- has_one :transaction
 
 ## addressesテーブル
 
