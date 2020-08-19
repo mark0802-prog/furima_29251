@@ -41,7 +41,7 @@
 
 |Column|Type|Options|
 |---|---|---|
-|name|string|null: false|
+|name|text|null: false|
 |info|text|null: false|
 |category|string|null: false|
 |sales-status|string|null: false|
