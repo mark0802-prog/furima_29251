@@ -56,3 +56,25 @@
 - belongs_to :user
 - has_one :transaction
 - has_one_attached :image
+
+# ordersテーブル
+
+# Association
+
+- has_one :address
+
+## addressesテーブル
+
+|Column|Type|Options|
+|---|---|---|
+|postal-code|string|null: false|
+|prefecture|integer|null: false|
+|city|string|null: false|
+|addresses|string|null: false|
+|building|string||
+|phone-number|integer|null: false|
+|order|references|null: false, foreign_key: true|
+
+### Association
+
+- belongs_to :order
