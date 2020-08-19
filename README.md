@@ -51,13 +51,6 @@
 - has_one :transaction
 - has_one_attached :image
 
-# ordersテーブル
-
-# Association
-
-- has_one :address
-- has_one :transaction
-
 ## addressesテーブル
 
 |Column|Type|Options|
