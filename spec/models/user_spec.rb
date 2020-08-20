@@ -23,30 +23,30 @@ RSpec.describe User, type: :model do
       @user2 = FactoryBot.create(:user)
       @user.email = @user2.email
       @user.valid?
-      expect(@user.errors.full_messages).to include("Email has already been taken")
+      expect(@user.errors.full_messages).to include('Email has already been taken')
     end
     it 'メールアドレスは@を含む必要があること' do
       @user.email = Faker::Internet.username
       @user.valid?
-      expect(@user.errors.full_messages).to include("Email is invalid")
+      expect(@user.errors.full_messages).to include('Email is invalid')
     end
     it 'パスワードが必須であること' do
       @user.password = nil
       @user.valid?
       expect(@user.errors.full_messages).to include("Password can't be blank")
     end
-      it 'パスワードは6文字以上であること' do
-        @user.password = '12345'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+    it 'パスワードは6文字以上であること' do
+      @user.password = '12345'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
     end
     it 'パスワードは半角英数字混合であること' do
       @user.password = '12345'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password is invalid. Input half-width alphanumeric mixture.")
+      expect(@user.errors.full_messages).to include('Password is invalid. Input half-width alphanumeric mixture.')
     end
     it 'パスワードは確認用を含めて2回入力すること' do
-      @user.password_confirmation = ""
+      @user.password_confirmation = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
@@ -63,12 +63,12 @@ RSpec.describe User, type: :model do
     it 'ユーザ本名の名字は全角（漢字・ひらがな・カタカナ）であること' do
       @user.first_name = Faker::Name.first_name
       @user.valid?
-      expect(@user.errors.full_messages).to include("First name is invalid. Input full-width characters.")
+      expect(@user.errors.full_messages).to include('First name is invalid. Input full-width characters.')
     end
     it 'ユーザ本名の名前は全角（漢字・ひらがな・カタカナ）であること' do
       @user.last_name = Faker::Name.last_name
       @user.valid?
-      expect(@user.errors.full_messages).to include("Last name is invalid. Input full-width characters.")
+      expect(@user.errors.full_messages).to include('Last name is invalid. Input full-width characters.')
     end
     it 'ユーザ本名の名字のフリガナが必須であること' do
       @user.first_name_kana = nil
@@ -83,12 +83,12 @@ RSpec.describe User, type: :model do
     it 'ユーザ本名の名字のフリガナは全角（カタカナ）であること' do
       @user.first_name_kana = 'たなか'
       @user.valid?
-      expect(@user.errors.full_messages).to include("First name kana is invalid. Input full-width katakana characters.")
+      expect(@user.errors.full_messages).to include('First name kana is invalid. Input full-width katakana characters.')
     end
     it 'ユーザ本名の名前のフリガナは全角（カタカナ）であること' do
       @user.last_name_kana = 'いちろう'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Last name kana is invalid. Input full-width katakana characters.")
+      expect(@user.errors.full_messages).to include('Last name kana is invalid. Input full-width katakana characters.')
     end
     it '生年月日が必須であること' do
       @user.birth_date = nil
