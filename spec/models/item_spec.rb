@@ -28,27 +28,27 @@ RSpec.describe Item, type: :model do
     it 'カテゴリーの情報が必須であること' do
       @item.category_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Category must be selected.")
+      expect(@item.errors.full_messages).to include('Category must be selected.')
     end
     it '商品の状態についての情報が必須であること' do
       @item.sales_status_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Sales status must be selected.")
+      expect(@item.errors.full_messages).to include('Sales status must be selected.')
     end
     it '配送料の負担についての情報が必須であること' do
       @item.shipping_fee_status_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Shipping fee status must be selected.")
+      expect(@item.errors.full_messages).to include('Shipping fee status must be selected.')
     end
     it '配送元の地域についての情報が必須であること' do
       @item.prefecture_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Prefecture must be selected.")
+      expect(@item.errors.full_messages).to include('Prefecture must be selected.')
     end
     it '発送までの日数についての情報が必須であること' do
       @item.scheduled_delivery_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Scheduled delivery must be selected.")
+      expect(@item.errors.full_messages).to include('Scheduled delivery must be selected.')
     end
     it '価格についての情報が必須であること' do
       @item.price = nil
@@ -58,21 +58,21 @@ RSpec.describe Item, type: :model do
     it '価格が300円以上であること' do
       @item.price = 299
       @item.valid?
-      expect(@item.errors.full_messages).to include("Price is out of setting range.")
+      expect(@item.errors.full_messages).to include('Price is out of setting range.')
       @item.price = 300
       expect(@item).to be_valid
     end
     it '価格が9,999,999円以下であること' do
-      @item.price = 10000000
+      @item.price = 10_000_000
       @item.valid?
-      expect(@item.errors.full_messages).to include("Price is out of setting range.")
-      @item.price = 9999999
+      expect(@item.errors.full_messages).to include('Price is out of setting range.')
+      @item.price = 9_999_999
       expect(@item).to be_valid
     end
     it '販売価格は半角数字のみ入力可能であること' do
-      @item.price = "１０００"
+      @item.price = '１０００'
       @item.valid?
-      expect(@item.errors.full_messages).to include("Price is invalid. Input half-width number.")
+      expect(@item.errors.full_messages).to include('Price is invalid. Input half-width number.')
     end
   end
 end
