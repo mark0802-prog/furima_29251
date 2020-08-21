@@ -59,6 +59,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'pry-rails'
+gem 'active_hash'
 
 group :production do
   gem 'rails_12factor'
