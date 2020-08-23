@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :items
+  has_many :orders
 
   zennkaku = /\A[ぁ-んァ-ン一-龥]/
   zennkaku_katakana = /\A[ァ-ヶー－]+\z/

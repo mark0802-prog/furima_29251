@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   def index
+    @items = Item.includes(:order, image_attachment: :blob)
   end
 
   def new
@@ -15,6 +16,9 @@ class ItemsController < ApplicationController
       @item.valid?
       render :new
     end
+  end
+
+  def show
   end
 
   private
