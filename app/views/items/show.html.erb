@@ -31,7 +31,7 @@
     <% elsif user_signed_in? && @item.user.id == current_user.id %>
       <%= link_to '商品の編集', edit_item_path(@item), method: :get, class: "item-red-btn" %>
       <p class='or-text'>or</p>
-      <%= link_to '削除', "#", method: :delete, class:'item-destroy' %>
+      <%= link_to '削除', item_path(@item), method: :delete, class:'item-destroy' %>
     <%# // ログインしているユーザと出品しているユーザが同一人物である時、商品の編集と削除を表示 %>
     <%# ログインユーザと出品したユーザが異なる時、商品の購入を表示 %>
     <% else %>
