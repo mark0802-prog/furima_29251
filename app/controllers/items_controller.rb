@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.includes(image_attachment: :blob)
+    @items = Item.includes(:order, image_attachment: :blob)
   end
 
   def new
