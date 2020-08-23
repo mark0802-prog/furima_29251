@@ -16,10 +16,10 @@
 
 ### Association
 
-- has_many :transactions
+- has_many :orders
 - has_many :items
 
-## transactionsテーブル
+## ordersテーブル
 
 |Column|Type|Options|
 |---|---|---|
@@ -49,7 +49,7 @@
 ### Association
 
 - belongs_to :user
-- has_one :transaction
+- has_one :order
 - has_one_attached :image
 
 ## addressesテーブル
@@ -66,4 +66,4 @@
 
 ### Association
 
-- belongs_to :transaction
+- belongs_to :order
