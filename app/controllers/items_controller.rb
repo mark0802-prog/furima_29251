@@ -45,8 +45,6 @@ class ItemsController < ApplicationController
 
   def item_user_eq_current_user?
     @item = Item.find(params[:id])
-    unless @item.user.id == current_user.id
-      redirect_to root_path
-    end
+    redirect_to root_path unless @item.user.id == current_user.id
   end
 end
