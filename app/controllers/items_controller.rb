@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  
+  before_action :item_user_eq_current_user?, only: [:edit, :update]
+
   def index
     @items = Item.includes(:order, image_attachment: :blob)
   end
@@ -23,11 +24,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:id])
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to root_path
     else
@@ -42,5 +41,12 @@ class ItemsController < ApplicationController
                                  :sales_status_id, :shipping_fee_status_id, :prefecture_id,
                                  :scheduled_delivery_id, :price, :image)
           .merge(user_id: current_user.id)
+  end
+
+  def item_user_eq_current_user?
+    @item = Item.find(params[:id])
+    unless @item.user.id == current_user.id
+      redirect_to root_path
+    end
   end
 end
