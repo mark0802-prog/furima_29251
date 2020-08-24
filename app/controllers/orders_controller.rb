@@ -21,7 +21,9 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :addresses, :building, :phone_number).merge(user_id: current_user.id).merge(token: params[:token]).merge(item_id: params[:item_id])
+    params.require(:order_address).permit(:postal_code, :prefecture_id, :city,
+                                          :addresses, :building, :phone_number)
+          .merge(user_id: current_user.id).merge(token: params[:token]).merge(item_id: params[:item_id])
   end
 
   def pay_item(item)
@@ -39,6 +41,6 @@ class OrdersController < ApplicationController
   end
 
   def item_is_sold_out?
-    redirect_to root_path if @item.order != nil
+    redirect_to root_path unless @item.order.nil?
   end
 end

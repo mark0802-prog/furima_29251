@@ -22,12 +22,12 @@ RSpec.describe OrderAddress, type: :model do
     it '郵便番号にはハイフンが必須であること' do
       @order_address.postal_code = '1234567'
       @order_address.valid?
-      expect(@order_address.errors.full_messages).to include("Postal code is invalid. Input correctly.")
+      expect(@order_address.errors.full_messages).to include('Postal code is invalid. Input correctly.')
     end
     it '都道府県が必須であること' do
       @order_address.prefecture_id = 1
       @order_address.valid?
-      expect(@order_address.errors.full_messages).to include("Prefecture must be selected.")
+      expect(@order_address.errors.full_messages).to include('Prefecture must be selected.')
     end
     it '市区町村が必須であること' do
       @order_address.city = nil
@@ -52,7 +52,7 @@ RSpec.describe OrderAddress, type: :model do
     it '電話番号にはハイフンは不要で11桁以内であること' do
       @order_address.phone_number = '123-4567-8901'
       @order_address.valid?
-      expect(@order_address.errors.full_messages).to include("Phone number is invalid. Input half-width numbers.")
+      expect(@order_address.errors.full_messages).to include('Phone number is invalid. Input half-width numbers.')
     end
   end
 end
