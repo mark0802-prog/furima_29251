@@ -1,6 +1,11 @@
 const pay = () => {
   Payjp.setPublicKey(process.env.PAYJP_PUBLIC_KEY)
   const form = document.getElementById('charge-form')
+
+  if (form == null) {
+    return null
+  }
+
   form.addEventListener('submit', (e) => {
     e.preventDefault()
 
@@ -8,10 +13,10 @@ const pay = () => {
     const formData = new FormData(formResult)
 
     const card = {
-      number: formData.get('number'),
-      exp_month: formData.get('exp_month'),
-      exp_year: `20${formData.get('exp_year')}`,
-      cvc: formData.get('cvc')
+      number: formData.get("order_address[number]"),
+      exp_month: formData.get("order_address[exp_month]"),
+      exp_year: `20${formData.get("order_address[exp_year]")}`,
+      cvc: formData.get("order_address[cvc]")
     }
 
     Payjp.createToken(card, (status, response) => {
@@ -29,6 +34,14 @@ const pay = () => {
         document.getElementById('charge-form').submit()
         document.getElementById('charge-form').reset()
       } else {
+        document.getElementById('card-number').removeAttribute("name")
+        document.getElementById('card-exp-month').removeAttribute("name")
+        document.getElementById('card-exp-year').removeAttribute("name")
+        document.getElementById('card-cvc').removeAttribute("name")
+
+        document.getElementById('charge-form').submit()
+        // alert("Card's information is invalid.")
+        // location.reload()
       }
     })
   })

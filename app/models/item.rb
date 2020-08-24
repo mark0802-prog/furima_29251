@@ -16,7 +16,7 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :info
-    validates :price, format: { with: half_width_number, message: 'is invalid. Input half-width number.' },
+    validates :price, format: { with: half_width_number, message: 'is invalid. Input half-width numbers.' },
                       numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999,
                                       message: 'is out of setting range.' }
   end
