@@ -40,8 +40,6 @@ const pay = () => {
         document.getElementById('card-cvc').removeAttribute("name")
 
         document.getElementById('charge-form').submit()
-        // alert("Card's information is invalid.")
-        // location.reload()
       }
     })
   })
