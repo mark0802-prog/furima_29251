@@ -52,7 +52,14 @@ RSpec.describe OrderAddress, type: :model do
     it '電話番号にはハイフンは不要で11桁以内であること' do
       @order_address.phone_number = '123-4567-8901'
       @order_address.valid?
-      expect(@order_address.errors.full_messages).to include('Phone number is invalid. Input half-width numbers.')
+      expect(@order_address.errors.full_messages).to include('Phone number is invalid. Input half-width numbers correctly.')
+    end
+    it '電話番号は10桁以上であること' do
+      @order_address.phone_number = '123456789'
+      @order_address.valid?
+      expect(@order_address.errors.full_messages).to include('Phone number is invalid. Input half-width numbers correctly.')
+      @order_address.phone_number = '1234567890'
+      expect(@order_address).to be_valid
     end
   end
 end
