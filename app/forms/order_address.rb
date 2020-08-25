@@ -3,6 +3,7 @@ class OrderAddress
   attr_accessor :token, :user_id, :item_id, :postal_code, :prefecture_id, :city, :addresses, :building, :phone_number
 
   postal_code = /\A\d{3}[-]\d{4}\z/
+  number = /\A\d+\z/
 
   with_options presence: true do
     validates :token
@@ -10,7 +11,7 @@ class OrderAddress
     validates :prefecture_id, numericality: { other_than: 1, message: 'must be selected.' }
     validates :city
     validates :addresses
-    validates :phone_number, numericality: { message: 'is invalid. Input half-width numbers.' }
+    validates :phone_number, format: { with: number, message: 'is invalid. Input half-width numbers.' }
   end
 
   def save
