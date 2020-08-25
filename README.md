@@ -56,13 +56,13 @@
 
 |Column|Type|Options|
 |---|---|---|
-|postal-code|string|null: false|
+|postal_code|string|null: false|
 |prefecture_id|integer|null: false|
 |city|string|null: false|
 |addresses|string|null: false|
 |building|string||
 |phone_number|string|null: false|
-|transaction|references|null: false, foreign_key: true|
+|order|references|null: false, foreign_key: true|
 
 ### Association
 

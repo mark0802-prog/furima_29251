@@ -18,7 +18,7 @@
     </div>
     <div class="item-price-box">
       <span class="item-price">
-        <%= @item.price %>円
+        ¥<%= @item.price %>
       </span>
       <span class="item-postage">
         (税込) 送料込み
@@ -35,7 +35,7 @@
     <%# // ログインしているユーザと出品しているユーザが同一人物である時、商品の編集と削除を表示 %>
     <%# ログインユーザと出品したユーザが異なる時、商品の購入を表示 %>
     <% else %>
-      <%= link_to '購入画面に進む', "#" ,class:"item-red-btn"%>
+      <%= link_to '購入画面に進む', item_orders_path(@item) ,class:"item-red-btn"%>
     <% end %>
     <%# // ログインユーザと出品したユーザが異なる時、商品の購入を表示 %>
     <div class="item-explain-box">
