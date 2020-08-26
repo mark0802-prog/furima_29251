@@ -8,7 +8,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
       visit root_path
     end
 
-    it 'ユーザ登録成功時' do
+    it '正しい情報の場合、ユーザ登録成功' do
       # トップページに「新規登録」ボタンがある
       click_on '新規登録'
       # 情報を正しく入力する
@@ -36,7 +36,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
       expect(page).to have_no_link('ログイン')
       expect(page).to have_no_link('新規登録')
     end
-    it 'ユーザ登録失敗時' do
+    it '入力しない場合、ユーザ登録失敗' do
       # トップページに「新規登録」ボタンがある
       click_on '新規登録'
       # 情報を入力しない
@@ -58,7 +58,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
       visit root_path
     end
 
-    it 'ログイン成功時' do
+    it '登録ずみのユーザ情報の場合、ログイン成功' do
       # ログインページに移動する
       click_on 'ログイン'
       # 正しい情報を入力し、「ログイン」ボタンを押す
@@ -74,7 +74,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
       expect(page).to have_no_link('ログイン')
       expect(page).to have_no_link('新規登録')
     end
-    it 'ログイン失敗時' do
+    it '未登録のユーザ情報の場合、ログイン失敗' do
       # ログインページに移動する
       click_on 'ログイン'
       # 間違った情報を入力する
@@ -92,12 +92,10 @@ RSpec.describe 'ユーザ管理機能', type: :system do
   describe 'ログアウト' do
     before do
       @user = FactoryBot.create(:user)
-      basic_auth
-      login_as(@user, scope: :user)
-      visit root_path
+      login(@user)
     end
 
-    it 'ログアウト成功時' do
+    it 'ログアウトボタンをクリックすると、ログアウト成功' do
       # ログアウトする
       click_on 'ログアウト'
       # トップページに「ユーザ名」と「ログアウト」が表示されない
