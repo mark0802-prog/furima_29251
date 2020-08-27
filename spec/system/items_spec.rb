@@ -63,6 +63,35 @@ RSpec.describe '商品管理機能', type: :system do
     end
   end
 
+  describe '商品一覧表示機能' do
+    before do
+      basic_auth
+      # 出品処理
+      @user = FactoryBot.create(:user)
+      @item = []
+      login(@user)
+      3.times do |i|
+        click_on '新規投稿商品'
+        @item[i] = FactoryBot.build(:item)
+        display(@item[i])
+        image_path = Rails.root.join("public/images/test_image#{i}.png")
+        attach_file('item-image', image_path)
+        price_check_submit(@item[i])
+        @item[i].id = Item.last[:id]
+      end
+      # //出品処理
+    end
+
+    it '複数出品した場合に、トップページで全ての商品が表示される' do
+      # トップページに投稿した商品の画像・値段・商品名が表示される
+      3.times do |i|
+        expect(page).to have_selector("img[src$='test_image#{i}.png']")
+        expect(page).to have_content(@item[i].price)
+        expect(page).to have_content(@item[i].name)
+      end
+    end
+  end
+
   describe '商品詳細表示機能' do
     before do
       basic_auth
