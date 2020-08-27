@@ -32,6 +32,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   config.include LogInSupport
+  config.include ItemSupport
   config.include Warden::Test::Helpers
   config.after :each do
     Warden.test_reset!

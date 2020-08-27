@@ -92,6 +92,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
   describe 'ログアウト' do
     before do
       @user = FactoryBot.create(:user)
+      basic_auth
       login(@user)
     end
 
