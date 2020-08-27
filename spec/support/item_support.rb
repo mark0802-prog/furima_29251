@@ -1,7 +1,5 @@
 module ItemSupport
   def display(item)
-    # 「新規投稿商品」をクリックすると、商品出品ページに遷移する
-    click_on '新規投稿商品'
     # 正しい情報を入力する
     image_path = Rails.root.join('public/images/test_image.png')
     attach_file('item-image', image_path)
@@ -15,7 +13,7 @@ module ItemSupport
     fill_in 'item-price', with: item.price
   end
 
-  def price_check(item)
+  def price_check_submit(item)
     # 価格を入力すると、販売手数料と利益が表示される
     price = item.price.to_i
     add_tax_price = (price * 0.1).to_i
@@ -28,10 +26,8 @@ module ItemSupport
     end.to change { Item.count }.by(1)
   end
 
-  def item_info(user, item)
-    # 商品の情報と出品者名が表示されている
-    expect(page).to have_content(user.nickname)
-    expect(page).to have_selector('img[src$="test_image.png"]')
+  def item_info(item)
+    # 商品の情報が表示されている、画像と出品者名は除く
     expect(page).to have_content(item.name && item.info && Category.find(item.category_id)[:name] &&
     SalesStatus.find(item.sales_status_id)[:name] && ShippingFeeStatus.find(item.shipping_fee_status_id)[:name] &&
     Prefecture.find(item.prefecture_id)[:name] && ScheduledDelivery.find(item.scheduled_delivery_id)[:name] && item.price)
