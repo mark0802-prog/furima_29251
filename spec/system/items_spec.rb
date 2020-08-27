@@ -262,5 +262,40 @@ RSpec.describe '商品管理機能', type: :system do
   end
 
   describe '商品削除機能' do
+    before do
+      basic_auth
+      # 出品処理
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.build(:item)
+      login(@user)
+      click_on '新規投稿商品'
+      display(@item)
+      price_check_submit(@item)
+      @item.id = Item.last[:id]
+      # //出品処理
+    end
+
+    context 'ログインしている場合' do
+      context '出品者の場合' do
+        it '商品を削除できる' do
+          # トップページに移動
+          visit root_path
+          # 商品をクリックすると詳細ページに移動する
+          find('.item-img-content').click
+          expect(current_path).to eq item_path(@item)
+          # 商品詳細ページの「削除」をクリックすると、商品情報がデータベースから削除される
+          expect do
+            click_on '削除'
+          end.to change { Item.count }.by(-1)
+          # トップページにリダイレクトされる
+          expect(current_path).to eq(root_path)
+          # 削除した商品の情報がトップページに表示されていない
+          expect(page).to have_no_selector('img[src$="test_image.png"]')
+          expect(page).to have_no_content(@item.price)
+          expect(page).to have_no_content(@item.name)
+        end
+      end
+    end
+    # 上記以外では、削除のリンクが表示されないことを確認した
   end
 end
