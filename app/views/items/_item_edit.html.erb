@@ -11,7 +11,7 @@
     <%= f.file_field :images, name: "item[images][]", id:"item-image" %>
   </div>
   <div id="item-preview"></div>
-  <p class="weight-bold-text">＜現在の画像＞</p>
+  <p class="weight-bold-text">＜現在の画像＞※画像を編集する場合は、全て選択しなおしてください。</p>
   <div class="old-image">
     <% @item.images.each do |image| %>
       <div>
