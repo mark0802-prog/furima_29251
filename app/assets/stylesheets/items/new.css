@@ -74,9 +74,6 @@
 
 /* 出品画像 */
 .img-upload {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
   padding: 2vh 0;
 }
 
@@ -93,6 +90,12 @@
   width: 20vh;
   height: 20vh;
   object-fit: contain;
+}
+
+.old-image{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 /* /出品画像 */
