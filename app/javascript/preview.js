@@ -14,9 +14,10 @@ const preview = () => {
     const blobImage = document.createElement("img")
     blobImage.setAttribute("src", blob)
     blobImage.setAttribute("class", "item-preview")
+    blobImage.setAttribute("id", `item_image_${imageElementNum}`)
 
     const inputHTML = document.createElement("input")
-    inputHTML.setAttribute("id", `item_image_${imageElementNum}`)
+    inputHTML.setAttribute("id", `item_image_${imageElementNum+1}`)
     inputHTML.setAttribute("name", "item[images][]")
     inputHTML.setAttribute("type", "file")
 
@@ -25,29 +26,37 @@ const preview = () => {
     itemPreview.appendChild(inputHTML)
 
     inputHTML.addEventListener("change", (e) => {
-      // const imageContent = document.querySelector("#item-preview img")
-      // if (imageContent) {
-      //   imageContent.remove()
-      // }
   
       file = e.target.files[0]
       blob = URL.createObjectURL(file)
+      const image_id = inputHTML.getAttribute("id")
 
-      createImageHTML(blob)
+      const imageContent = document.querySelector(`#image-element img[id='item_image_${imageElementNum+1}']`)
+      if (imageContent) {
+        changeImageHTML(blob, image_id)
+      } else {
+        createImageHTML(blob)
+      }
     })
   }
 
+  const changeImageHTML = (blob, image_id) => {
+    const blobImage = document.querySelector(`#image-element img[id='${image_id}']`)
+    blobImage.removeAttribute("src")
+    blobImage.setAttribute("src", blob)
+  }
+
   itemImage.addEventListener("change", (e) => {
-    // const imageContent = document.querySelector("#item-preview img")
-    // if (imageContent) {
-    //   imageContent.remove()
-    // }
 
     const file = e.target.files[0]
     const blob = URL.createObjectURL(file)
 
-    createImageHTML(blob)
-
+    const imageContent = document.querySelector("#image-element img[id='item_image_0']")
+    if (imageContent) {
+      changeImageHTML(blob, "item_image_0")
+    } else {
+      createImageHTML(blob)
+    }
   })
 }
 
