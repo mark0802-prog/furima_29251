@@ -16,11 +16,11 @@ class Item < ApplicationRecord
     validates :images
     validates :name
     validates :info
-    validates :price, format: { with: half_width_number, message: 'is invalid. Input half-width numbers.' },
+    validates :price, format: { with: half_width_number, message: 'は半角数字で入力してください' },
                       numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999,
-                                      message: 'is out of setting range.' }
+                                      message: 'は¥300~¥9,999,999で設定してください' }
   end
-  with_options numericality: { other_than: 1, message: 'must be selected.' } do
+  with_options numericality: { other_than: 1, message: 'を選択してください' } do
     validates :category_id
     validates :sales_status_id
     validates :shipping_fee_status_id
