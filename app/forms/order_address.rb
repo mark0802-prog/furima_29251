@@ -7,11 +7,11 @@ class OrderAddress
 
   with_options presence: true do
     validates :token
-    validates :postal_code, format: { with: postal_code, message: 'is invalid. Input correctly.' }
-    validates :prefecture_id, numericality: { other_than: 1, message: 'must be selected.' }
+    validates :postal_code, format: { with: postal_code, message: 'はハイフン（-）ありの半角数字で入力してください' }
+    validates :prefecture_id, numericality: { other_than: 1, message: 'を選択してください' }
     validates :city
     validates :addresses
-    validates :phone_number, format: { with: phone_number, message: 'is invalid. Input half-width numbers correctly.' }
+    validates :phone_number, format: { with: phone_number, message: 'はハイフン（-）なしの半角数字10桁または11桁で入力してください' }
   end
 
   def save
