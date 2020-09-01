@@ -2,7 +2,9 @@ module ItemSupport
   def display(item)
     # 正しい情報を入力する
     image_path = Rails.root.join('public/images/test_image.png')
+    image_path2 = Rails.root.join('public/images/test_image0.png')
     attach_file('item-image', image_path)
+    attach_file('item_image_1', image_path2)
     fill_in 'item-name', with: item.name
     fill_in 'item-info', with: item.info
     select Category.find(item.category_id)[:name], from: 'item-category'

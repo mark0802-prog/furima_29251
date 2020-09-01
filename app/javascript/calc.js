@@ -26,4 +26,4 @@ const calc = () => {
   })
 }
 
-setInterval(calc, 1000)
+addEventListener("DOMContentLoaded", calc)
