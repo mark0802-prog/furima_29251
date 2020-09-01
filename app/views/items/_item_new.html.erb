@@ -11,15 +11,6 @@
     <%= f.file_field :images, name: "item[images][]", id:"item-image" %>
   </div>
   <div id="item-preview"></div>
-  <p class="weight-bold-text">＜現在の画像＞※画像を編集する場合は、全て選択しなおしてください。</p>
-  <div class="old-image">
-    <% @item.images.each do |image| %>
-      <div>
-        <%= image_tag image, class: "item-preview" %>
-        <p><%= image.filename %></p>
-      </div>
-    <% end %>
-  </div>
 </div>
 <%# /出品画像 %>
 <%# 商品名と商品説明 %>

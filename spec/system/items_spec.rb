@@ -122,6 +122,7 @@ RSpec.describe '商品管理機能', type: :system do
           # 商品の情報と出品者名が表示されている
           expect(page).to have_content(@user.nickname)
           expect(page).to have_selector('img[src$="test_image.png"]')
+          expect(page).to have_selector('img[src$="test_image0.png"]')
           item_info(@item)
         end
       end
@@ -146,6 +147,7 @@ RSpec.describe '商品管理機能', type: :system do
           # 商品の情報と出品者名が表示されている
           expect(page).to have_content(@user.nickname)
           expect(page).to have_selector('img[src$="test_image.png"]')
+          expect(page).to have_selector('img[src$="test_image0.png"]')
           item_info(@item)
         end
       end
@@ -168,6 +170,7 @@ RSpec.describe '商品管理機能', type: :system do
         # 商品の情報と出品者名が表示されている
         expect(page).to have_content(@user.nickname)
         expect(page).to have_selector('img[src$="test_image.png"]')
+        expect(page).to have_selector('img[src$="test_image0.png"]')
         item_info(@item)
       end
     end
@@ -214,13 +217,16 @@ RSpec.describe '商品管理機能', type: :system do
         end
         it '画像の編集ができる' do
           # 画像の更新
-          image_path = Rails.root.join('public/images/test_image2.png')
+          image_path = Rails.root.join('public/images/test_image1.png')
+          image_path2 = Rails.root.join('public/images/test_image2.png')
           attach_file('item-image', image_path)
+          attach_file('item_image_1', image_path2)
           # 「変更する」ボタンをクリックすると、トップページに遷移する
           click_on '変更する'
           expect(current_path).to eq(root_path)
           # トップページに投稿した商品の画像・値段・商品名が表示される
-          expect(page).to have_selector('img[src$="test_image2.png"]')
+          expect(page).to have_selector('img[src$="test_image1.png"]')
+          expect(page).to have_no_selector('img[src$="test_image2.png"]')
           expect(page).to have_content(@item.price)
           expect(page).to have_content(@item.name)
         end

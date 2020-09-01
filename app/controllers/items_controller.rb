@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   before_action :item_user_eq_current_user?, only: [:edit, :update, :destroy]
 
   def index
-    @items = Item.includes(:order, image_attachment: :blob)
+    @items = Item.includes(:order).with_attached_images
   end
 
   def new
@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:name, :info, :category_id,
                                  :sales_status_id, :shipping_fee_status_id, :prefecture_id,
-                                 :scheduled_delivery_id, :price, :image)
+                                 :scheduled_delivery_id, :price, images: [])
           .merge(user_id: current_user.id)
   end
 

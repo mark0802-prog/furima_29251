@@ -8,12 +8,12 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one :order
-  has_one_attached :image
+  has_many_attached :images
 
   half_width_number = /\A[0-9]+\z/
 
   with_options presence: true do
-    validates :image
+    validates :images
     validates :name
     validates :info
     validates :price, format: { with: half_width_number, message: 'is invalid. Input half-width numbers.' },
