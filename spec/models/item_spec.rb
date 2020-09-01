@@ -4,16 +4,21 @@ RSpec.describe Item, type: :model do
   describe '商品出品機能' do
     before do
       @item = FactoryBot.build(:item)
-      @item.image = fixture_file_upload('public/images/test_image.png')
+      @item.images = [fixture_file_upload('public/images/test_image.png')]
     end
 
     it '全ての値が正しく入力されていれば保存できること' do
       expect(@item).to be_valid
     end
     it '画像は1枚必須であること' do
-      @item.image = nil
+      @item.images = nil
       @item.valid?
-      expect(@item.errors.full_messages).to include("Image can't be blank")
+      expect(@item.errors.full_messages).to include("Images can't be blank")
+    end
+    it '画像が複数枚でも保存できること' do
+      @item.images = [fixture_file_upload('public/images/test_image0.png'),
+                      fixture_file_upload('public/images/test_image1.png'), fixture_file_upload('public/images/test_image2.png')]
+      expect(@item).to be_valid
     end
     it '商品名が必須であること' do
       @item.name = nil
