@@ -13,7 +13,7 @@ RSpec.describe Item, type: :model do
     it '画像は1枚必須であること' do
       @item.images = nil
       @item.valid?
-      expect(@item.errors.full_messages).to include("出品画像を入力してください")
+      expect(@item.errors.full_messages).to include('出品画像を入力してください')
     end
     it '画像が複数枚でも保存できること' do
       @item.images = [fixture_file_upload('public/images/test_image0.png'),
@@ -23,12 +23,12 @@ RSpec.describe Item, type: :model do
     it '商品名が必須であること' do
       @item.name = nil
       @item.valid?
-      expect(@item.errors.full_messages).to include("商品名を入力してください")
+      expect(@item.errors.full_messages).to include('商品名を入力してください')
     end
     it '商品の説明が必須であること' do
       @item.info = nil
       @item.valid?
-      expect(@item.errors.full_messages).to include("商品の説明を入力してください")
+      expect(@item.errors.full_messages).to include('商品の説明を入力してください')
     end
     it 'カテゴリーの情報が必須であること' do
       @item.category_id = 1
@@ -58,7 +58,7 @@ RSpec.describe Item, type: :model do
     it '価格についての情報が必須であること' do
       @item.price = nil
       @item.valid?
-      expect(@item.errors.full_messages).to include("価格を入力してください")
+      expect(@item.errors.full_messages).to include('価格を入力してください')
     end
     it '価格が300円以上であること' do
       @item.price = 299
