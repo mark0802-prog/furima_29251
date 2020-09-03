@@ -26,8 +26,10 @@
         (税込) 送料込み
       </span>
     </div>
-    <%# 商品が売れている場合、商品の編集・削除・購入を表示しない %>
-    <% if @item.order != nil %>
+    <%# 商品が売れている場合、商品の編集・購入を表示しない %>
+    <% if @item.order != nil && user_signed_in? && @item.user.id == current_user.id %>
+      <%= link_to '削除', item_path(@item), method: :delete, class:'item-destroy' %>
+    <% elsif @item.order != nil %>
     <%# // 商品が売れている場合、商品の編集・削除・購入を表示しない %>
     <%# ログインしているユーザと出品しているユーザが同一人物である時、商品の編集と削除を表示%>
     <% elsif user_signed_in? && @item.user.id == current_user.id %>

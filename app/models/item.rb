@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   belongs_to_active_hash :scheduled_delivery
 
   belongs_to :user
-  has_one :order
+  has_one :order, dependent: :destroy
   has_many_attached :images
 
   half_width_number = /\A[0-9]+\z/
