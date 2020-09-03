@@ -52,6 +52,11 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include('パスワード（確認用）とパスワードの入力が一致しません')
     end
+    it 'パスワード更新時も半角英数混合であること' do
+      @user.save
+      expect(@user.update(password: '123456', password_confirmation: '123456')).to be_falsey
+      expect(@user.errors.full_messages).to include('パスワードは半角英数字混合で入力してください')
+    end
     it 'ユーザ本名の名字が必須であること' do
       @user.first_name = nil
       @user.valid?
