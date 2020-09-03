@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
+    @item = Item.with_attached_images.find(params[:id])
   end
 
   def edit
@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
   end
 
   def item_user_eq_current_user?
-    @item = Item.find(params[:id])
+    @item = Item.with_attached_images.find(params[:id])
     redirect_to root_path unless @item.user.id == current_user.id
   end
 end
