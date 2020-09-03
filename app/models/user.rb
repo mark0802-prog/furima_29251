@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :items
   has_many :orders
+  has_one :card
 
   zennkaku = /\A[ぁ-んァ-ン一-龥]/
   zennkaku_katakana = /\A[ァ-ヶー－]+\z/
