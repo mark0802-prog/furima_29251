@@ -17,9 +17,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/edit
   def edit
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-    card = Card.find_by(user_id: current_user.id)
-    if card.present?
-      customer = Payjp::Customer.retrieve(card.customer_token)
+    if current_user.card.present?
+      customer = Payjp::Customer.retrieve(current_user.card.customer_token)
       @card = customer.cards.first
     end
   end

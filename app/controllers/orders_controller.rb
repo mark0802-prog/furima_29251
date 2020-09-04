@@ -29,10 +29,9 @@ class OrdersController < ApplicationController
 
   def pay_item(item)
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
-    customer_token = current_user.card.customer_token
     Payjp::Charge.create(
       amount: item.price,
-      customer: customer_token,
+      customer: @customer_token,
       currency: 'jpy'
     )
   end
@@ -49,8 +48,8 @@ class OrdersController < ApplicationController
   def card_is_registered?
     redirect_to cards_path and return unless current_user.card.present?
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-    card = Card.find_by(user_id: current_user.id)
-    customer = Payjp::Customer.retrieve(card.customer_token)
+    @customer_token = current_user.card.customer_token
+    customer = Payjp::Customer.retrieve(@customer_token)
     @card = customer.cards.first
   end
 end
