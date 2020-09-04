@@ -45,4 +45,6 @@ const pay = () => {
   })
 }
 
-addEventListener('load', pay)
+if (document.URL.match(/card/)) {
+  addEventListener('load', pay)
+}

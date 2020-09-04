@@ -6,7 +6,6 @@ class OrderAddress
   phone_number = /\A\d{10,11}\z/
 
   with_options presence: true do
-    validates :token
     validates :postal_code, format: { with: postal_code, message: 'はハイフン（-）ありの半角数字で入力してください' }
     validates :prefecture_id, numericality: { other_than: 1, message: 'を選択してください' }
     validates :city
