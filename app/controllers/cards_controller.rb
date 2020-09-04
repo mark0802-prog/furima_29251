@@ -5,8 +5,8 @@ class CardsController < ApplicationController
 
   def create
     customer_create
-    card = Card.new(card_params)
-    if card.save
+    @card = Card.new(card_params)
+    if @card.save
       redirect_to root_path
     else
       render "index"
