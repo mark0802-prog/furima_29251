@@ -168,3 +168,19 @@
   font-size: 14px;
   text-decoration: none;
 }
+
+.card-update-btn-content {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.card-update-btn {
+  background: #ea352d;
+  border: 1px solid #ea352d;
+  color: #fff;
+  padding: 15px 15%;
+  line-height: 48px;
+  font-size: 14px;
+  text-decoration: none;
+}

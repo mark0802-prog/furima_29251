@@ -1,17 +1,45 @@
 <%= render "shared/second-header"%>
-
-<div class='registration-main'>
-  <div class='form-wrap'>
-    <div class='form-header'>
-      <h1 class='form-header-text'>
-        クレジットカード登録
-      </h1>
-    </div>
-    <div class='card-register-btn-content'>
-      <%= link_to "登録する", cards_path, class:"card-register-btn" %>
+<% if @card == nil %>
+  <div class='registration-main'>
+    <div class='form-wrap'>
+      <div class='form-header'>
+        <h1 class='form-header-text'>
+          クレジットカード登録
+        </h1>
+      </div>
+      <div class='card-register-btn-content'>
+        <%= link_to "登録する", cards_path, class:"card-register-btn" %>
+      </div>
     </div>
   </div>
-</div>
+<% else %>
+  <div class='registration-main'>
+    <div class='form-wrap'>
+      <div class='form-header'>
+        <h1 class='form-header-text'>
+          クレジットカード情報
+        </h1>
+      </div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">カード番号</label>
+        </div>
+        <%= "**** **** **** " + @card[:last4] %>
+      </div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">有効期限</label>
+        </div>
+        <%= @card[:exp_month] %>
+        /
+        <%= @card[:exp_year] %>
+      </div>
+      <div class='card-update-btn-content'>
+        <%= link_to "変更する", "#", class:"card-update-btn" %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <%= form_with model: @user, url: user_registration_path, class: 'registration-main', local: true do |f| %>
 <div class='form-wrap'>
