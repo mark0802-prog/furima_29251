@@ -1,4 +1,7 @@
 class CardsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :card_is_registered?
+
   def index
     @card = Card.new
   end
@@ -25,5 +28,9 @@ class CardsController < ApplicationController
 
   def card_params
     params.permit(:card_token).merge(customer_token: @customer.id).merge(user_id: current_user.id)
+  end
+
+  def card_is_registered?
+    redirect_to edit_user_registration_path if current_user.card.present?
   end
 end

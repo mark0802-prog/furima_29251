@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
   end
 
   def card_is_registered?
-    redirect_to cards_path and return unless current_user.card.present?
+    redirect_to cards_path unless current_user.card.present?
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     @customer_token = current_user.card.customer_token
     customer = Payjp::Customer.retrieve(@customer_token)
