@@ -20,6 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if current_user.card.present?
       customer = Payjp::Customer.retrieve(current_user.card.customer_token)
       @card = customer.cards.first
+      @card_id = current_user.card.id
     end
   end
 
