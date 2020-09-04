@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :items
   has_many :orders
+  has_one :card
 
   zennkaku = /\A[ぁ-んァ-ン一-龥]/
   zennkaku_katakana = /\A[ァ-ヶー－]+\z/
@@ -21,5 +22,5 @@ class User < ApplicationRecord
   end
 
   validates :password, format: { with: alphanumeric_mixture,
-                                 message: 'は半角英数字混合で入力してください' }
+                                 message: 'は半角英数字混合で入力してください' }, allow_blank: true
 end

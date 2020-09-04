@@ -42,8 +42,8 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include('パスワードは6文字以上で入力してください')
     end
     it 'パスワードは半角英数字混合であること' do
-      @user.password = '12345'
-      @user.password_confirmation = '12345'
+      @user.password = '123456'
+      @user.password_confirmation = '123456'
       @user.valid?
       expect(@user.errors.full_messages).to include('パスワードは半角英数字混合で入力してください')
     end
@@ -51,6 +51,11 @@ RSpec.describe User, type: :model do
       @user.password_confirmation = ''
       @user.valid?
       expect(@user.errors.full_messages).to include('パスワード（確認用）とパスワードの入力が一致しません')
+    end
+    it 'パスワード更新時も半角英数混合であること' do
+      @user.save
+      expect(@user.update(password: '123456', password_confirmation: '123456')).to be_falsey
+      expect(@user.errors.full_messages).to include('パスワードは半角英数字混合で入力してください')
     end
     it 'ユーザ本名の名字が必須であること' do
       @user.first_name = nil

@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :item_user_noteq_current_user?
   before_action :item_is_sold_out?
+  before_action :card_is_registered?
 
   def index
     @order = OrderAddress.new
@@ -23,14 +24,14 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order_address).permit(:postal_code, :prefecture_id, :city,
                                           :addresses, :building, :phone_number)
-          .merge(user_id: current_user.id).merge(token: params[:token]).merge(item_id: params[:item_id])
+          .merge(user_id: current_user.id).merge(item_id: params[:item_id])
   end
 
   def pay_item(item)
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: item.price,
-      card: order_params[:token],
+      customer: @customer_token,
       currency: 'jpy'
     )
   end
@@ -42,5 +43,14 @@ class OrdersController < ApplicationController
 
   def item_is_sold_out?
     redirect_to root_path unless @item.order.nil?
+  end
+
+  def card_is_registered?
+    redirect_to cards_path and return unless current_user.card.present?
+
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    @customer_token = current_user.card.customer_token
+    customer = Payjp::Customer.retrieve(@customer_token)
+    @card = customer.cards.first
   end
 end
