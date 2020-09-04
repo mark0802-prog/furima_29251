@@ -16,12 +16,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   def edit
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-    if current_user.card.present?
-      customer = Payjp::Customer.retrieve(current_user.card.customer_token)
-      @card = customer.cards.first
-      @card_id = current_user.card.id
-    end
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    return unless current_user.card.present?
+
+    customer = Payjp::Customer.retrieve(current_user.card.customer_token)
+    @card = customer.cards.first
+    @card_id = current_user.card.id
   end
 
   # PUT /resource

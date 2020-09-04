@@ -8,7 +8,7 @@ class CardsController < ApplicationController
   end
 
   def create
-    if params[:card_token] != nil
+    if !params[:card_token].nil?
       customer_create
       @card = Card.new(card_params)
     else
@@ -17,7 +17,7 @@ class CardsController < ApplicationController
     if @card.save
       redirect_to root_path
     else
-      render "index"
+      render 'index'
     end
   end
 
@@ -38,7 +38,7 @@ class CardsController < ApplicationController
   def customer_create
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     @customer = Payjp::Customer.create(
-      description: "test",
+      description: 'test',
       card: params[:card_token]
     )
   end
