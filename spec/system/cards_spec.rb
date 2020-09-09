@@ -16,7 +16,7 @@ RSpec.describe 'カード管理機能', type: :system do
       context 'カードを登録している場合' do
         before do
           # カード登録処理
-          card_register
+          card_register(@user)
           @card_id = Card.last[:id]
           # //カード登録処理
           #マイページにいる
@@ -104,7 +104,7 @@ RSpec.describe 'カード管理機能', type: :system do
         end
         it '正しい情報を入力すれば、カードを登録できる' do
           # カード登録処理
-          card_register
+          card_register(@user)
           # //カード登録処理
           # マイページにリダイレクトされる
           expect(current_path).to eq edit_user_registration_path
@@ -147,7 +147,7 @@ RSpec.describe 'カード管理機能', type: :system do
         @user = FactoryBot.create(:user)
         login(@user)
         # カード登録処理
-        card_register
+        card_register(@user)
         @card_id = Card.last[:id]
         # //カード登録処理
         # ログアウト

@@ -1,7 +1,7 @@
 module CardSupport
-  def card_register
+  def card_register(user)
     # ニックネームをクリックすると、マイページに遷移する
-    click_on @user.nickname
+    click_on user.nickname
     # 「登録する」ボタンをクリックすると、カード登録画面に遷移する
     click_on '登録する'
     # 正しい情報を入力する
