@@ -39,7 +39,7 @@ RSpec.describe '購入管理機能', type: :system do
 
         context 'カード登録をしている場合' do
           before do
-            #カード登録処理
+            # カード登録処理
             card_register(@user2)
           end
 
@@ -59,7 +59,7 @@ RSpec.describe '購入管理機能', type: :system do
               expect(current_path).to eq(root_path)
             end
           end
-  
+
           context '誤った情報を入力した場合' do
             it '商品を購入できない' do
               # トップページに移動
@@ -128,7 +128,7 @@ RSpec.describe '購入管理機能', type: :system do
         # 別のユーザでログイン
         @user2 = FactoryBot.create(:user)
         login(@user2)
-        #カード登録処理（user2で登録）
+        # カード登録処理（user2で登録）
         card_register(@user2)
         # 購入処理（user2で購入）
         order(@user2)

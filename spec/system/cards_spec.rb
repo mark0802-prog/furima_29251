@@ -19,7 +19,7 @@ RSpec.describe 'カード管理機能', type: :system do
           card_register(@user)
           @card_id = Card.last[:id]
           # //カード登録処理
-          #マイページにいる
+          # マイページにいる
         end
 
         it 'マイページに登録したカード情報が表示される' do
@@ -30,44 +30,44 @@ RSpec.describe 'カード管理機能', type: :system do
           expect(page).to have_content('有効期限')
           expect(page).to have_content('変更する')
           # 登録したカード情報の下4桁と有効期限がある
-          expect(page).to have_content("4242")
-          expect(page).to have_content("12")
-          expect(page).to have_content("24")
-          #「変更する」ボタンをクリックすると、カード編集ページへ遷移する
-          click_on "変更する"
+          expect(page).to have_content('4242')
+          expect(page).to have_content('12')
+          expect(page).to have_content('24')
+          # 「変更する」ボタンをクリックすると、カード編集ページへ遷移する
+          click_on '変更する'
           expect(current_path).to eq edit_card_path(@card_id)
         end
         it '正しい情報を入力すればカード情報を編集することができる' do
           # 「変更する」をクリックすると、カード編集ページに遷移する
-          click_on "変更する"
+          click_on '変更する'
           # 正しい情報を入力する
           fill_in 'card-number', with: 5_105_105_105_105_100
           fill_in 'card-exp-month', with: 3
           fill_in 'card-exp-year', with: 25
           fill_in 'card-cvc', with: 123
           # 更新ボタンを押すと、マイページにリダイレクトされる
-          click_on "更新"
-          expect(page).to have_content("会員情報")
+          click_on '更新'
+          expect(page).to have_content('会員情報')
           expect(current_path).to eq edit_user_registration_path
           # 更新した情報が表示されている
-          expect(page).to have_content("5100")
-          expect(page).to have_content("3")
-          expect(page).to have_content("25")
+          expect(page).to have_content('5100')
+          expect(page).to have_content('3')
+          expect(page).to have_content('25')
         end
         it '誤った情報を入力するとエラーメッセージが表示され、カード情報は更新されない' do
           # 「変更する」をクリックすると、カード編集ページに遷移する
-          click_on "変更する"
+          click_on '変更する'
           # 情報を入力しない
           # 更新ボタンを押しても、移動しない
-          click_on "更新"
+          click_on '更新'
           expect(current_path).to eq edit_card_path(@card_id)
           # エラーメッセージが表示される
-          expect(page).to have_selector(".error-message")
+          expect(page).to have_selector('.error-message')
           # マイページのカード情報に変更はない
           visit edit_user_registration_path
-          expect(page).to have_content("4242")
-          expect(page).to have_content("12")
-          expect(page).to have_content("24")
+          expect(page).to have_content('4242')
+          expect(page).to have_content('12')
+          expect(page).to have_content('24')
         end
         it 'urlでカード登録ページに遷移しようとしても、マイページにリダイレクトされる' do
           # カード登録ページのurlを入れても、ログインページにリダイレクトされる
