@@ -1,13 +1,12 @@
 module OrderSupport
   # 商品購入処理
-  def order
+  def order(user)
     # トップページに移動
     visit root_path
     # ログアウト
     click_on 'ログアウト'
-    # 別のユーザでログイン
-    @user2 = FactoryBot.create(:user)
-    login(@user2)
+    # ログイン
+    login(user)
     # 商品をクリックすると詳細ページに移動する
     find('.item-img-content').click
     expect(current_path).to eq item_path(@item)
@@ -15,10 +14,6 @@ module OrderSupport
     click_on '購入画面に進む'
     expect(current_path).to eq(item_orders_path(@item))
     # 正しい情報を入力する
-    fill_in 'card-number', with: 4_242_424_242_424_242
-    fill_in 'card-exp-month', with: 12
-    fill_in 'card-exp-year', with: 24
-    fill_in 'card-cvc', with: 123
     fill_in 'postal-code', with: @order_address.postal_code
     select Prefecture.find(@order_address.prefecture_id)[:name], from: 'prefecture'
     fill_in 'city', with: @order_address.city

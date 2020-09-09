@@ -9,11 +9,6 @@ RSpec.describe OrderAddress, type: :model do
     it '全ての値が正しく入力されていれば保存できること' do
       expect(@order_address).to be_valid
     end
-    it 'クレジットカード情報は必須であり、正しいクレジットカードの情報でないときは決済できないこと' do
-      @order_address.token = nil
-      @order_address.valid?
-      expect(@order_address.errors.full_messages).to include('クレジットカード情報を入力してください')
-    end
     it '郵便番号が必須であること' do
       @order_address.postal_code = nil
       @order_address.valid?

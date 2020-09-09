@@ -15,7 +15,7 @@ class CardsController < ApplicationController
       @card = Card.new(user_id: current_user.id)
     end
     if @card.save
-      redirect_to root_path
+      redirect_to edit_user_registration_path
     else
       render 'index'
     end
@@ -47,9 +47,9 @@ class CardsController < ApplicationController
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     card = current_user.card
     @customer = Payjp::Customer.retrieve(card.customer_token)
+    @customer.cards.create(card: params[:card_token])
     old_card = @customer.cards.first
     old_card.delete
-    @customer.cards.create(card: params[:card_token])
   end
 
   def card_params
