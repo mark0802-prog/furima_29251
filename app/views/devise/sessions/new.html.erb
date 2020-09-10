@@ -11,6 +11,9 @@
     <%= flash[:notice] %>
     <%= flash[:alert] %>
   </div>
+  <div class="form-link">
+    <%= link_to "facebookアカウントでログイン", user_facebook_omniauth_authorize_path, method: :post %>
+  </div>
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">メールアドレス</label>
