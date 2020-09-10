@@ -10,9 +10,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    if params[:sns_auth]
+      pass = Devise.friendly_token[0,20]
+      while pass.count("-_") > 0
+        pass = Devise.friendly_token[0,20]
+      end
+      params[:user][:password] = pass
+      params[:user][:password_confirmation] = pass
+    end
+    super
+  end
 
   # GET /resource/edit
   def edit
