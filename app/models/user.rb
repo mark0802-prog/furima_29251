@@ -2,11 +2,12 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:facebook]
 
   has_many :items
   has_many :orders
   has_one :card
+  has_many :sns_credentials
 
   zennkaku = /\A[ぁ-んァ-ン一-龥]/
   zennkaku_katakana = /\A[ァ-ヶー－]+\z/
