@@ -71,6 +71,7 @@ gem 'aws-sdk-s3', require: false
 gem 'rails-i18n'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 
 group :production do
   gem 'rails_12factor'

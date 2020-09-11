@@ -1,5 +1,19 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  before_action :authorization, except: :failure
+
   def facebook
+  end
+
+  def google_oauth2
+  end
+
+  def failure
+    redirect_to root_path
+  end
+
+  private
+
+  def authorization
     if user_signed_in?
       sns = User.linked_sns(request.env["omniauth.auth"])
       sns.update(user_id: current_user.id)
@@ -15,9 +29,5 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       render "users/registrations/new"
     end
-  end
-
-  def failure
-    redirect_to root_path
   end
 end

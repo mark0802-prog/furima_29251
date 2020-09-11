@@ -86,6 +86,15 @@
         <%= link_to "<facebookアカウントと連携>", user_facebook_omniauth_authorize_path, method: :post, class: "link" %>
       </div>
     <% end %>
+    <% if @sns_google %>
+      <div class="form-link">
+        <%= link_to "<googleアカウントの連携を解除>", sns_credential_path(@sns_google.id), method: :delete, class: "link" %>
+      </div>
+    <% else %>
+      <div class="form-link">
+        <%= link_to "<googleアカウントと連携>", user_google_oauth2_omniauth_authorize_path, method: :post, class: "link" %>
+      </div>
+    <% end %>
   </div>
 </div>
 
