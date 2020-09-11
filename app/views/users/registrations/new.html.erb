@@ -27,7 +27,7 @@
     <%= f.email_field :email, class:"input-default", id:"email", placeholder:"PC・携帯どちらでも可", autofocus: true %>
   </div>
   <% if @sns_id.present? %>
-    <%= hidden_field_tag :sns_auth, true %>
+    <%= hidden_field_tag :sns_auth, @sns_id %>
   <% else %>
     <div class="form-group">
       <div class='form-text-wrap'>

@@ -11,8 +11,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    if params[:sns_auth]
-      pass = Devise.friendly_token[0,20]
+    if @sns_id = params[:sns_auth]
+      pass = "#{Devise.friendly_token[0,20]}0"
       while pass.count("-_") > 0
         pass = Devise.friendly_token[0,20]
       end
@@ -20,6 +20,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       params[:user][:password_confirmation] = pass
     end
     super
+    if (@sns_id && @user.valid?)
+      sns = UserSns.new(sns_id: @sns_id, user_id: @user.id)
+      sns.update
+    end
   end
 
   # GET /resource/edit
