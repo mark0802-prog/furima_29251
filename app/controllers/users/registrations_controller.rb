@@ -28,6 +28,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   def edit
+    @sns_facebook = SnsCredential.find_by(user_id: current_user.id, provider: "facebook")
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     return unless current_user.card.present?
 

@@ -70,4 +70,23 @@
 </div>
 <% end %>
 
+<div class='registration-main'>
+  <div class='form-wrap'>
+    <div class='form-header'>
+      <h1 class='form-header-text'>
+        snsアカウント連携
+      </h1>
+    </div>
+    <% if @sns_facebook %>
+      <div class="form-link">
+        <%= link_to "<facebookアカウントの連携を解除>", sns_credential_path(@sns_facebook.id), method: :delete, class: "link" %>
+      </div>
+    <% else %>
+      <div class="form-link">
+        <%= link_to "<facebookアカウントと連携>", user_facebook_omniauth_authorize_path, method: :post, class: "link" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 <%= render "shared/second-footer"%>

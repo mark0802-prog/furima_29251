@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   end
   resources :cards, only: [:index, :create, :edit, :update]
   resources :users, only: :new
+  resources :sns_credentials, only: :destroy
 end
