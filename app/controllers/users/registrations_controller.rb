@@ -11,25 +11,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    if @sns_id = params[:sns_auth]
-      pass = "#{Devise.friendly_token[0,20]}0"
-      while pass.count("-_") > 0
-        pass = Devise.friendly_token[0,20]
-      end
+    if (@sns_id = params[:sns_auth])
+      pass = "#{Devise.friendly_token[0, 20]}0"
+      pass = "#{Devise.friendly_token[0, 20]}0" while pass.count('-_').positive?
       params[:user][:password] = pass
       params[:user][:password_confirmation] = pass
     end
     super
-    if (@sns_id && @user.valid?)
-      sns = UserSns.new(sns_id: @sns_id, user_id: @user.id)
-      sns.update
-    end
+    return unless @sns_id && @user.valid?
+
+    sns = UserSns.new(sns_id: @sns_id, user_id: @user.id)
+    sns.update
   end
 
   # GET /resource/edit
   def edit
-    @sns_facebook = SnsCredential.find_by(user_id: current_user.id, provider: "facebook")
-    @sns_google = SnsCredential.find_by(user_id: current_user.id, provider: "google_oauth2")
+    @sns_facebook = SnsCredential.find_by(user_id: current_user.id, provider: 'facebook')
+    @sns_google = SnsCredential.find_by(user_id: current_user.id, provider: 'google_oauth2')
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     return unless current_user.card.present?
 

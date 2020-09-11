@@ -27,16 +27,16 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     sns = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_create
-    return {user: sns.user, sns: sns} if sns.user.present?
+    return { user: sns.user, sns: sns } if sns.user.present?
 
     user = User.new(
       nickname: auth.info.name,
-      email: auth.info.email,
+      email: auth.info.email
     )
-    {user: user, sns: sns}
+    { user: user, sns: sns }
   end
 
   def self.linked_sns(auth)
-    sns = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_create
+    SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_create
   end
 end

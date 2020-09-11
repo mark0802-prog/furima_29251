@@ -4,7 +4,7 @@ class SnsCredentialsController < ApplicationController
     if @sns.destroy
       redirect_to edit_user_registration_path
     else
-      render "users/registrations/edit"
+      render 'users/registrations/edit'
     end
   end
 end
