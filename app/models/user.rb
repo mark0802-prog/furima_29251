@@ -35,4 +35,8 @@ class User < ApplicationRecord
     )
     {user: user, sns: sns}
   end
+
+  def self.linked_sns(auth)
+    sns = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_create
+  end
 end
