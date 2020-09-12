@@ -1,0 +1,13 @@
+<%= render "shared/second-header"%>
+
+<div class="form-link">
+  <%= link_to "<SNSアカウントを使用せずに登録>", new_user_registration_path, class: "link" %>
+</div>
+<div class="form-link">
+  <%= link_to "<facebookアカウントで登録>", user_facebook_omniauth_authorize_path, method: :post, class: "link" %>
+</div>
+<div class="form-link">
+  <%= link_to "<googleアカウントで登録>", user_google_oauth2_omniauth_authorize_path, method: :post, class: "link" %>
+</div>
+
+<%= render "shared/second-footer"%>

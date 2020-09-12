@@ -19,6 +19,7 @@
 - has_many :orders
 - has_many :items
 - has_one :card
+- has_many :sns_credentials
 
 ## ordersテーブル
 
@@ -80,3 +81,15 @@
 ### Association
 
 - belongs_to :user
+
+## sns_credentialsテーブル
+
+|Column|Type|Options|
+|---|---|---|
+|provider|string||
+|uid|string||
+|user|references|foreign_key: true|
+
+### Association
+
+- belongs_to :user, optional: true

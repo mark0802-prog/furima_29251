@@ -2,11 +2,12 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
 
   has_many :items
   has_many :orders
   has_one :card
+  has_many :sns_credentials
 
   zennkaku = /\A[ぁ-んァ-ン一-龥]/
   zennkaku_katakana = /\A[ァ-ヶー－]+\z/
@@ -23,4 +24,22 @@ class User < ApplicationRecord
 
   validates :password, format: { with: alphanumeric_mixture,
                                  message: 'は半角英数字混合で入力してください' }, allow_blank: true
+
+  def self.from_omniauth(auth)
+    sns = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_create
+    return { user: sns.user, sns: sns } if sns.user.present?
+
+    user = User.new(
+      nickname: auth.info.name,
+      email: auth.info.email
+    )
+    { user: user, sns: sns }
+  end
+
+  def self.linked_sns(auth)
+    sns = { provider: auth.provider, uid: auth.uid }
+    return if SnsCredential.find_by(sns)
+
+    SnsCredential.create(sns)
+  end
 end
