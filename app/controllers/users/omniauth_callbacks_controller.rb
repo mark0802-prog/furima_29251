@@ -16,6 +16,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def authorization
     if user_signed_in?
       sns = User.linked_sns(request.env['omniauth.auth'])
+      redirect_to root_path and return if sns.nil?
+
       sns.update(user_id: current_user.id)
       redirect_to edit_user_registration_path and return
     end
